@@ -71,5 +71,6 @@ print ('Exiting @ tick %i because %s' % (m5.curTick(), exit_event.getCause()))
 ## Output
 ![alt text](Output.png?raw=true)
 
-### This assignment can be accessed on github
+This assignment can be accessed on github at https://github.com/nirmita123/CA_Assignment2 
+
 
