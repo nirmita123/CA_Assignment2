@@ -1,3 +1,4 @@
+##include "base/trace.hh"
 #include "debug/MATRIX.hh"
 #include "debug/RESULT.hh"
 #include "debug/HelloDebug.hh"
@@ -7,12 +8,12 @@
 using namespace std;
 Hello::Hello(HelloParams *params) : SimObject(params), event([this]{processEvent();}, name())
 {
-    dprintf(Debug::HelloDebug, "created simObject\n");
+   DPRINTF(HelloDebug, "created simObject\n");
 }
 void Hello::processEvent()
 {
    // std::cout << "Hello World! From a SimObject! I'm making inverse matrix" << std::endl;
-    dprintf(Debug::HelloDebug, "Hello World! From a SimObject! I'm making inverse matrix \n");
+    DPRINTF(HelloDebug, "Hello World! From a SimObject! I'm making inverse matrix \n");
     int i, j;
     float mat[3][3]={{-7,-10,4}, {12,-2,-8}, {1,5,6}};
 
@@ -33,22 +34,23 @@ void Hello::processEvent()
        for(j = 0; j < 3; j++)
            inv[i][j]=((mat[(j+1)%3][(i+1)%3] * mat[(j+2)%3][(i+2)%3]) - (mat[(j+1)%3][(i+2)%3] * mat[(j+2)%3][(i+1)%3]))/ determinant;
                   //std::cout<<"\n";
-    }
-   dprintf(Debug::MATRIX,  "Given Matrix: \n %f %f %f \n %f %f %f \n %f %f %f \n\n", mat[0][0],mat[0][1],mat[0][2],mat[1][0],mat[1][1],mat[1][2],mat[2][0],mat[2][1], mat[2][2]);
-   dprintf(Debug::RESULT, "Resultant inverse Matrix:  \n %f %f %f \n %f %f %f \n %f %f %f \n\n", inv[0][0],inv[0][1],inv[0][2],inv[1][0],inv[1][1],inv[1][2],inv[2][0],inv[2][1], inv[2][2]);
+                   }
+   DPRINTF(MATRIX,  "Given Matrix: \n %f %f %f \n %f %f %f \n %f %f %f \n\n", mat[0][0],mat[0][1],mat[0][2],mat[1][0],mat[1][1],mat[1][2],mat[2][0],mat[2][1], mat[2][2]);
+   DPRINTF(RESULT, "Resultant inverse Matrix:  \n %f %f %f \n %f %f %f \n %f %f %f \n\n", inv[0][0],inv[0][1],inv[0][2],inv[1][0],inv[1][1],inv[1][2],inv[2][0],inv[2][1], inv[2][2]);
 
 
+       //dprintf(MATRIX,"newtry");
 
-   }
-   void
-   Hello::startup()
-   {
-       schedule(event, 1000);
-   }
+}
+void
+Hello::startup()
+{
+   schedule(event, 1000);
+}
 
-   Hello*
-   HelloParams::create()
-   {
-       return new Hello(this);
-   }
-
+Hello*
+HelloParams::create()
+{
+   return new Hello(this);
+}
+                                
